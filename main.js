@@ -29,5 +29,8 @@ wss.on('connection', function connection(ws) {
 		});
 	});
 
-	ws.send('connected');
+	let localAddress = ws._socket.localAddress.replace("::ffff:", "");
+	let remoteAddress = ws._socket.remoteAddress.replace("::ffff:", "");
+	console.log('connected. server: %s:%i client: %s:%i', localAddress, ws._socket.localPort, remoteAddress, ws._socket.remotePort);
+	ws.send(`connected. server: ${localAddress}:${ws._socket.localPort} client: ${remoteAddress}:${ws._socket.remotePort}`);
 });
